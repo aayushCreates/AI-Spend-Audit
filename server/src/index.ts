@@ -13,14 +13,20 @@ app.use(morgan("dev"));
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
+    origin: [
+      `${process.env.CLIENT_URL}`,
+      "https://ai-spend-audit-eight-beta.vercel.app",
+    ],
   }),
 );
 
 app.use(express.json());
 
 app.use("/api/audit", auditRouter);
+
+app.get("/health", (req, res) => {
+  res.json({ ok: true });
+});
 
 app.use(errorHandler);
 
