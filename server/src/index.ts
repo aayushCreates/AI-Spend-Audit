@@ -13,10 +13,10 @@ app.use(morgan("dev"));
 
 app.use(
   cors({
-    origin: [
-      `${process.env.CLIENT_URL}`,
-      "https://ai-spend-audit-eight-beta.vercel.app",
-    ],
+    origin: function (origin, callback) {
+      callback(null, true);
+    },
+    credentials: true,
   }),
 );
 
