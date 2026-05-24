@@ -42,16 +42,12 @@ export default function Step4Analyze({ onComplete, formData }: Step4Props) {
           profile: formData.profile,
         };
 
-        console.log("Payload:", payload);
-
         const apiUrl = import.meta.env.VITE_API_URL;
-        console.log("API URL:", apiUrl);
 
         const res = await axios.post(`${apiUrl}/audit`, payload, {
           headers: { "Content-Type": "application/json" },
         });
 
-        console.log("Response:", res);
         if (res.data.success && res.data.data) {
           auditData = res.data.data;
         }
@@ -66,7 +62,7 @@ export default function Step4Analyze({ onComplete, formData }: Step4Props) {
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 99 && !isAuditDone) {
-          return 99; 
+          return 99;
         }
         if (prev >= 100) {
           clearInterval(interval);
