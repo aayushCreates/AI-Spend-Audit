@@ -5,13 +5,13 @@ export default function NoAuditFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#050505] text-white flex items-center justify-center p-20 relative overflow-hidden">
+    <div className="bg-[#050505] text-white flex items-center justify-center p-6 md:p-20 min-h-[60vh] relative overflow-hidden">
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-green-500/5 blur-[80px] md:blur-[120px] rounded-full pointer-events-none"></div>
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-md bg-[#0A0A0A] border border-white/10 p-10 rounded-3xl shadow-2xl">
-        <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
-          <SearchX className="w-10 h-10 text-gray-400" />
+      <div className="relative z-10 flex flex-col items-center text-center w-full max-w-md bg-[#0A0A0A] border border-white/10 p-8 sm:p-10 rounded-3xl shadow-2xl">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
+          <SearchX className="w-8 h-8 sm:w-10 sm:h-10 text-gray-400" />
         </div>
 
         <h1 className="text-2xl font-bold text-white mb-4 tracking-tight">
