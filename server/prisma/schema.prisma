@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ToolId {
+  CURSOR
+  GITHUB_COPILOT
+  CLAUDE
+  CHATGPT
+  ANTHROPIC_API
+  OPENAI_API
+  GEMINI
+  WINDSURF
+}
+
+enum UseCaseType {
+  CODING
+  WRITING
+  DATA
+  RESEARCH
+  SUPPORT
+  MIXED
+}
+
+enum RecommendationType {
+  OPTIMAL
+  DOWNGRADE
+  OVERSPENDING
+  SWITCH
+}
+
+model AuditTool {
+  id                   String @id @default(uuid())
+  audit                Audit  @relation(fields: [auditId], references: [id])
+  auditId              String
+  toolId               ToolId
+  planId               String
+  seats                Int
+  monthlySpendOverride Float?
+}
+
+model AuditUseCase {
+  id      String      @id @default(uuid())
+  audit   Audit       @relation(fields: [auditId], references: [id])
+  auditId String
+  useCase UseCaseType
+}
+
+model AuditRecommendation {
+  id                 String             @id @default(uuid())
+  audit              Audit              @relation(fields: [auditId], references: [id])
+  auditId            String
+  toolId             ToolId
+  toolName           String
+  currentPlanId      String
+  currentPlanName    String
+  currentSpend       Float
+  recommendationType RecommendationType
+  recommendedAction  String
+  recommendedPlanId  String?
+  savings            Float
+  reasoning          String
+}
+
+model Audit {
+  id                  String                @id @default(uuid())
+  teamSize            Int
+  estimatedBudget     Float
+  profileName         String?
+  profileCompany      String?
+  profileRole         String?
+  profileEmail        String?
+  tools               AuditTool[]
+  useCases            AuditUseCase[]
+  recommendations     AuditRecommendation[]
+  totalCurrentSpend   Float
+  totalMonthlySavings Float
+  totalAnnualSavings  Float
+  aiSummary           String?
+  summaryFallback     Boolean @default(false)
+
+  lead Lead?
+
+  createdAt DateTime @default(now())
+}
+
+model Lead {
+  id             String   @id @default(uuid())
+  auditId        String   @unique
+  audit          Audit    @relation(fields: [auditId], references: [id])
+  email          String
+  companyName    String?
+  role           String?
+  monthlySavings Float?
+  isHighValue    Boolean  @default(false)
+  emailSent      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  @@index([isHighValue])
+  @@index([email])
+  @@map("leads")
+}
