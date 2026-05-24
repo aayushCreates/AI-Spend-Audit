@@ -24,7 +24,7 @@ export default function Step4Analyze({ onComplete, formData }: Step4Props) {
     const runAudit = async () => {
       try {
         const toolsArray: ToolInput[] = Object.entries(formData.tools)
-          .filter(([key, value]: any) => value.active)
+          .filter(([_, value]: any) => value.active)
           .map(([key, value]: [string, any]) => ({
             toolId: key as ToolInput["toolId"],
             planId: value.plan,
