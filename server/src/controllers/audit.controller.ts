@@ -12,8 +12,6 @@ export async function postAudit(
     const { teamSize, useCases, tools, estimatedBudget, profile } =
       req.body as AuditInput;
 
-    console.log("------------body---------------", req.body);
-
     if (!teamSize || !useCases || !Array.isArray(tools) || tools.length === 0) {
       throw new AppError(
         400,
